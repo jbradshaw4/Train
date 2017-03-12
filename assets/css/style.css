@@ -1,0 +1,28 @@
+.page-header{
+	background-image: url(../images/train2.jpg);
+	height: 200px;
+	background-size: 100% 350px;
+	background-repeat: no-repeat;
+
+}
+h1,br{
+	text-align: center;
+}
+
+table {
+	
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
