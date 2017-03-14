@@ -3,40 +3,64 @@
  <!--Link to Firebase-->
 
   // Initialize Firebase
- "https://www.gstatic.com/firebasejs/3.7.1/firebase.js"
-var config = {
-    apiKey: "AIzaSyBAPT2poyRwgmj14cmI22Hyjqrgz4uWV5o",
-    authDomain: "train-hw-a7fee.firebaseapp.com",
-    databaseURL: "https://train-hw-a7fee.firebaseio.com",
-    storageBucket: "train-hw-a7fee.appspot.com",
-    messagingSenderId: "482287653109"
+  var config = {
+    apiKey: "AIzaSyB0J7r0p43Ej85EDnjZUHSJn_86LNDVUjw",
+    authDomain: "train-37953.firebaseapp.com",
+    databaseURL: "https://train-37953.firebaseio.com",
+    storageBucket: "train-37953.appspot.com",
+    messagingSenderId: "530090049424"
   };
   firebase.initializeApp(config);
 
-var database = firebase.database();
+  var database = firebase.database();
 
 
     var trainName = "";
     var destination = "";
-    var firstTrain = "";
+    var firstTrainTime = "";
     var frequency = "";
+    var nextTrain = "";
+    var nextTrainFormatted = "";
+    var currentTime = "";
+    var diffTime = "";
+    var tRemainder = "";
+    var minutesTillTrain = "";
 
     // Capture Button Click
+
 $("#addTrain").on("click", function() {
      
       event.preventDefault();
-      console.log(click);
-     
+
       trainName = $('#trainName-input').val().trim();
       destination = $('#destination-input').val().trim();
-      firstTrain = $('#firstTrain-input').val().trim();
+      firstTrainTime = $('#firstTrain-input').val().trim();
       frequency = $('#frequency-input').val().trim();
-      // Code in the logic for storing and retrieving the most recent user.
-      database.ref().set({
+      currentTime = moment();
+      diffTime = currentTime.diff(moment(),"minutes");
+      tRemainder = nextTrain - currentTime;
+      tRemainder = diffTime % frequency;
+      minutesTillTrain = frequency - tRemainder;
+      nextTrain = moment().add(minutesTillTrain, "minutes");
+      nextTrainFormatted = moment(nextTrain).format("HH:mm");
+
+     console.log("current time "+ currentTime);
+     console.log("firstTtime " +firstTrainTime);
+     console.log("freq "+frequency);
+     console.log("diffTime "+ diffTime);
+     console.log("min minutesTillTrain "+ minutesTillTrain);
+     console.log("next"+nextTrainFormatted);
+
+
+
+      // Code for storing and retrieving train inputs
+      database.ref().push({
         trainName: trainName,
         destination: destination,
-        firstTrain: firstTrain,
+        firstTrainTime: firstTrainTime,
         frequency: frequency,
+        nextTrainFormatted: nextTrainFormatted,
+        minutesTillTrain: minutesTillTrain
       });
       
 
@@ -44,11 +68,30 @@ $("#addTrain").on("click", function() {
 
     
     database.ref().on("value", function(snapshot){
-      console.log (snapshot.val());
+      console.log(snapshot.val);
 
-      $('#trainName-display').html(snapshot.val().trainName);
+      $(".table-striped").append(
+        "<tr><td>" + trainName + "</td><td>" + destination + "</td><td>"
+         + frequency + "</td><td>" + nextTrainFormatted + "</td><td>"
+          + minutesTillTrain + "</td></tr>");
+          
+
+
+        
+      /*$('#trainName-display').html(snapshot.val().trainName);
       $('#destination-display').html(snapshot.val().destination);
-      $('#firstTrain-display').html(snapshot.val().firstTrain);
       $('#frequency-display').html(snapshot.val().frequency);
+      $('#nextArrival-display').html(snapshot.val().nextTrainFormatted);
+      $('#minutesAway').html(snapshot.val().minutesTillTrain);*/
+
       
     });
+
+
+        
+
+
+
+
+
+    

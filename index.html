@@ -10,8 +10,6 @@
 	<!--Link to CSS-->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-  <!-- Firebase Reference -->
-  <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
   
 	<!--Link to Moment.js-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
@@ -19,8 +17,9 @@
 	<!--Link to jq-->
 	 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 
-	<!--link to js-->	
-	<script type="text/javascript" src="assets/javascript/app.js"></script>  
+ 
+  <!-- Firebase Reference -->
+  <script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
   
 </head>
 
@@ -32,9 +31,9 @@
   		<h1>Train Schedule<br><small>Enjoy the Ride!<br></small></h1>
 
 
-	</div>
+	</div> <!--closes page-header-->
 	
-	<div class="panel panel-primary">
+	<div class="panel panel-primary display-panel">
 			<!-- Default panel contents -->
   		<div class="panel-heading">Train Schedule</div>
 
@@ -42,67 +41,83 @@
   			<table class="table-striped">
   				<tr>
   					<th>Train Name</th>
-  					<th>Destination</th>
-  					<th>Frequency <small>(min)</small></th>
-  					<th>Next Arrival</th>
-  					<th>Minutes Away</th>
-  				</tr>
 
-  				<tr>
+  					<th>Destination</th>
+
+  					<th>Frequency <small>(min)</small></th>
+
+  					<th>Next Arrival</th>
+
+  					<th>Minutes Away</th>
+
+  				</tr> <!--closes input-->
+
+  				<!--<tr class="trainSchedule">
+
   					<td id="trainName-display"></td>
-            <td id="destination-display"></td>
+
+          		  	<td id="destination-display"></td>
+
+          		  	<td id="frequency-display"></td>
+
+          		  	<td id="nextArrival-display"></td>
+
+          			 <td id="minutesAway"></td>
+
+         	    </tr> <!--closes display-->
     
   			</table>
-	</div>
+	</div> <!--closes panel- primary-->
 
-	<div class="panel panel-primary">
+	<div class="panel panel-primary input-panel">
 
 		<div class="panel-heading">Add a Train</div>
 
 			<form>
  				<div class="form-group">
+
     				<label for="trainName-input">Train Name</label>
+
     				<input class="form-control" id="trainName-input" type="text">
-  			</div>
+  				</div> <!--closes form-group-->
 
  				<div class="form-group">
+
    					<label for="destination-input">Destination</label>
-            <input class="form-control" id="destination-input" type="text">
- 				</div>
 
-        <div class="form-group">
-            <label for="firstTrain-input">First Train Time<small>(military time)</small></label>
-            <input class="form-control" id="firstTrain-input" type="number">
-        </div>
+           			 <input class="form-control" id="destination-input" type="text">
+ 				</div> <!--closes form-group-->
 
-        <div class="form-group">
-            <label for="frequency-input">Frequency<small>(min)</small></label>
-            <input class="form-control" id="frequency-input" type="number">
-        </div>
+        		<div class="form-group">
 
-            <button type="submit" id="addTrain"  class="btn btn-primary">Submit</button>
-      </form>
+            		<label for="firstTrain-input">First Train Time<small>(military time)</small></label>
 
+           			 <input class="form-control" id="firstTrain-input" type="number">
+        		</div> <!--closes form-group-->
 
-	</div>
+        		<div class="form-group">
 
+            		<label for="frequency-input">Frequency<small>(min)</small></label>
 
-</div>
+            		<input class="form-control" id="frequency-input" type="number">
 
+        		</div> <!--closes form-group-->
 
+            		<button type="submit" id="addTrain"  class="btn btn-primary">Submit</button>
 
+     		 </form>
 
 
+	</div> <!--closes panel-primay-->
 
 
-
-
+</div> <!--closes container fluid-->
 
 
 
 
-
-
+ <!--link to js--> 
+  <script type="text/javascript" src="assets/javascript/app.js"></script> 
 
 
 

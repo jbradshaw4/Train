@@ -3,7 +3,13 @@
 	height: 200px;
 	background-size: 100% 350px;
 	background-repeat: no-repeat;
+    text-align: center;
 
+}
+
+
+.panel-heading{
+    font-size: 15px;
 }
 h1,br{
 	text-align: center;
