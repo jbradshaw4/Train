@@ -32,24 +32,29 @@ $("#addTrain").on("click", function() {
      
       event.preventDefault();
 
+
       trainName = $('#trainName-input').val().trim();
+
       destination = $('#destination-input').val().trim();
       firstTrainTime = $('#firstTrain-input').val().trim();
       frequency = $('#frequency-input').val().trim();
       currentTime = moment();
-      diffTime = currentTime.diff(moment(),"minutes");
-      tRemainder = nextTrain - currentTime;
+      diffTime = currentTime.diff(moment(firstTrainTime),"minutes");
       tRemainder = diffTime % frequency;
       minutesTillTrain = frequency - tRemainder;
       nextTrain = moment().add(minutesTillTrain, "minutes");
       nextTrainFormatted = moment(nextTrain).format("HH:mm");
-
+      $('#trainName-input').val("");
+      $('#destination-input').val("");
+      $('#firstTrain-input').val("");
+      $('#frequency-input').val("");
      console.log("current time "+ currentTime);
      console.log("firstTtime " +firstTrainTime);
      console.log("freq "+frequency);
      console.log("diffTime "+ diffTime);
      console.log("min minutesTillTrain "+ minutesTillTrain);
      console.log("next"+nextTrainFormatted);
+
 
 
 
@@ -61,6 +66,8 @@ $("#addTrain").on("click", function() {
         frequency: frequency,
         nextTrainFormatted: nextTrainFormatted,
         minutesTillTrain: minutesTillTrain
+        
+
       });
       
 
