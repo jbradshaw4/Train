@@ -25,6 +25,8 @@
     var diffTime = "";
     var tRemainder = "";
     var minutesTillTrain = "";
+    var firstTimeConverted = "";
+    var getKey = "";
 
     // Capture Button Click
 
@@ -38,16 +40,18 @@ $("#addTrain").on("click", function() {
       destination = $('#destination-input').val().trim();
       firstTrainTime = $('#firstTrain-input').val().trim();
       frequency = $('#frequency-input').val().trim();
+      firstTimeConverted = moment(firstTrainTime, "HH:mm").subtract(1, "years");
       currentTime = moment();
-      diffTime = currentTime.diff(moment(firstTrainTime),"minutes");
+      diffTime = currentTime.diff(moment(firstTimeConverted),"minutes");
       tRemainder = diffTime % frequency;
       minutesTillTrain = frequency - tRemainder;
       nextTrain = moment().add(minutesTillTrain, "minutes");
       nextTrainFormatted = moment(nextTrain).format("HH:mm");
-      $('#trainName-input').val("");
-      $('#destination-input').val("");
-      $('#firstTrain-input').val("");
-      $('#frequency-input').val("");
+      
+
+      
+
+
      console.log("current time "+ currentTime);
      console.log("firstTtime " +firstTrainTime);
      console.log("freq "+frequency);
@@ -69,32 +73,50 @@ $("#addTrain").on("click", function() {
         
 
       });
+
+      $('#trainName-input').val("");
+      $('#destination-input').val("");
+      $('#firstTrain-input').val("");
+      $('#frequency-input').val("");
+
+      return false;
       
 
     });
 
     
-    database.ref().on("value", function(snapshot){
-      console.log(snapshot.val);
+    database.ref().on("child_added", function(childSnapshot){
+      console.log(childSnapshot.val);
 
-      $(".table-striped").append(
+      /*$(".table-striped").append(
         "<tr><td>" + trainName + "</td><td>" + destination + "</td><td>"
          + frequency + "</td><td>" + nextTrainFormatted + "</td><td>"
-          + minutesTillTrain + "</td></tr>");
-          
+          + minutesTillTrain + "</td></tr>");*/
+       $('.table-striped').append("<tr class='table-row' id=" + "'" + childSnapshot.key + "'" + ">" +
+               "<td>" + childSnapshot.val().trainName +
+               "</td>" +
+               "<td>" + childSnapshot.val().destination +
+               "</td>" +
+               "<td>" + childSnapshot.val().frequency +
+               "</td>" +
+               "<td>" + childSnapshot.val().nextTrainFormatted + // Next Arrival Formula ()
+               "</td>" +
+               "<td>" + childSnapshot.val().minutesTillTrain + // Minutes Away Formula
+               "</td>" +
+               "<td>" + "<input type='submit' value='remove train' class='remove-train btn btn-primary btn-sm'>" + "</td>" +
+          "</tr>");   
 
-
-        
-      /*$('#trainName-display').html(snapshot.val().trainName);
-      $('#destination-display').html(snapshot.val().destination);
-      $('#frequency-display').html(snapshot.val().frequency);
-      $('#nextArrival-display').html(snapshot.val().nextTrainFormatted);
-      $('#minutesAway').html(snapshot.val().minutesTillTrain);*/
-
+      
+    }, function(errorObject){
       
     });
 
-
+$(".table-striped").on("click", ".remove-train", function(){
+     $(this).closest ('tr').remove();
+     getKey = $(this).parent().parent().attr('id');
+     database.ref().child(getKey).remove();
+});
+console.log("click");
         
 
 
